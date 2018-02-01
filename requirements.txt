@@ -1,0 +1,5 @@
+requests
+numpy>=1.11.1
+six>=1.10.0
+logbook==1.0.0
+click>6.6
