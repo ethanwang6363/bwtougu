@@ -1,7 +1,6 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 
-import os
 import six
 import click
 
@@ -26,7 +25,7 @@ def entry_point():
     cli(obj={})
     
 def inject_mod_commands():
-    from byrobot.utils.config import get_mod_conf
+    from bwtougu.utils.config import get_mod_conf
     mod_config = get_mod_conf()
     
 @cli.command()
@@ -35,7 +34,7 @@ def version(**kwargs):
     """
     Output Version Info
     """
-    from byrobot import version_info
+    from bwtougu import version_info
     six.print_("Current Version: ", version_info)
     
 if __name__ == '__main__':

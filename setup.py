@@ -10,13 +10,13 @@ from setuptools import (
     find_packages,
     )
 
-with open(join(dirname(__file__), 'byrobot/VERSION.txt'), 'rb') as f:
+with open(join(dirname(__file__), 'bwtougu/VERSION.txt'), 'rb') as f:
     version = f.read().decode('ascii').strip()
     
 requirements = [str(ir.req) for ir in parse_requirements("requirements.txt", session=False)]
 
 setup(
-    name='byrobot',
+    name='bwtougu',
     version=version,
     description='bangying robot for python3',
     author='luhx',
@@ -29,7 +29,7 @@ setup(
     zip_safe=False,
     entry_points={
         "console_scripts":[
-            "byrobot = byrobot.__main__:entry_point"
+            "bwtougu = bwtougu.__main__:entry_point"
         ]
     },
     classifiers=[
