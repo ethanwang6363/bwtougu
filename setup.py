@@ -18,7 +18,7 @@ requirements = [str(ir.req) for ir in parse_requirements("requirements.txt", ses
 setup(
     name='bwtougu',
     version=version,
-    description='bangying robot for python3',
+    description='bwtougu for python3',
     author='luhx',
     author_email='luhx@bangth.com',
     license='Apache License v2',
@@ -33,10 +33,10 @@ setup(
         ]
     },
     classifiers=[
-    'Programming Language :: Python',
-    'Operating System :: Microsoft :: Windows',
-    'Operating System :: Unix',
-    'Programming Language :: Python :: 3.5',
-    'Programming Language :: Python :: 3.6',
+        'Programming Language :: Python',
+        'Operating System :: Microsoft :: Windows',
+        'Operating System :: Unix',
+        'Programming Language :: Python :: 3.5',
+        'Programming Language :: Python :: 3.6',
     ],
 )

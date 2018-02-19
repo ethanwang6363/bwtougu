@@ -2,6 +2,9 @@
 # -*- coding: utf-8 -*-
 import pkgutil
 
+from bwtougu.__main__ import cli
+from bwtougu.api.api_base import export_as_api
+
 __all__ = [
     '__version__',
     'version_info'
