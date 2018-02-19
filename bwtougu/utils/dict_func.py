@@ -4,6 +4,8 @@
 import collections
 
 def deep_update(from_dict, to_dict):
+    if not from_dict:
+        return
     for(key, value) in from_dict.items():
         if(key in to_dict.keys() and 
            isinstance(to_dict[key], collections.Mapping) and
