@@ -5,11 +5,13 @@ import pprint
 import re
 import six
 import collections
+import numpy as np
 
 from bwtougu.utils.exception import CustomError, CustomException
 from bwtougu.const import INSTRUMENT_TYPE, DEFAULT_ACCOUNT_TYPE
 from bwtougu.const import EXC_TYPE
 from contextlib import contextmanager
+from bwtougu.utils.i18n import gettext as _
 
 from bwtougu.utils.py2 import lru_cache
 
@@ -144,7 +146,7 @@ def run_with_user_log_disabled(disabled=True):
 
 @lru_cache(None)
 def get_account_type(order_book_id):
-    from rqalpha.environment import Environment
+    from bwtougu.environment import Environment
     instrument = Environment.get_instance().get_instrument(order_book_id)
     enum_type = instrument.enum_type
     if enum_type in INST_TYPE_IN_STOCK_ACCOUNT:
