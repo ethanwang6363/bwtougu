@@ -10,7 +10,6 @@ from bwtougu.utils.exception import CustomException, patch_user_exc
 from bwtougu.environment import Environment
 
 
-
 class ContextStack(object):
     def __init__(self):
         self.stack = []
@@ -78,7 +77,7 @@ class ExecutionContext(object):
         if isinstance(last_exc_val, CustomException):
             raise last_exc_val
 
-        from rqalpha.utils import create_custom_exception
+        from bwtougu.utils import create_custom_exception
         strategy_file = Environment.get_instance().config.base.strategy_file
         user_exc = create_custom_exception(exc_type, exc_val, exc_tb, strategy_file)
         raise user_exc

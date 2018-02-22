@@ -14,6 +14,7 @@ from bwtougu.data.trading_dates_store import TradingDatesStore
 from bwtougu.data.simple_factor_store import SimpleFactorStore
 from bwtougu.data.date_set import DateSet
 from bwtougu.utils.py2 import lru_cache
+from bwtougu.data.yield_curve_store import YieldCurveStore
 
 class BaseDataSource(AbstractDataSource):
     def __init__(self, path):
@@ -31,10 +32,15 @@ class BaseDataSource(AbstractDataSource):
         self._instruments = InstrumentStore(_p('instruments.pk'))
         self._dividends = DividendStore(_p('original_dividends.bcolz'))
         self._trading_dates = TradingDatesStore(_p('trading_dates.bcolz'))
-        self.split_factor = SimpleFactorStore(_p('split_factor.bcolz'))
+        self._yield_curve = YieldCurveStore(_p('yield_curve.bcolz'))
+        self._split_factor = SimpleFactorStore(_p('split_factor.bcolz'))
+        self._ex_cum_factor = SimpleFactorStore(_p('ex_cum_factor.bcolz'))
 
         self._st_stock_days = DateSet(_p('st_stock_days.bcolz'))
         self._suspend_days = DateSet(_p('suspended_days.bcolz'))
+
+        self.get_yield_curve = self._yield_curve.get_yield_curve
+        self.get_risk_free_rate = self._yield_curve.get_risk_free_rate
 
     def get_trading_calendar(self):
         return self._trading_dates.get_trading_calendar()
@@ -90,3 +96,8 @@ class BaseDataSource(AbstractDataSource):
             return convert_int_to_date(s).date(), convert_int_to_date(e).date()
 
         raise NotImplementedError
+
+    def get_dividend(self, order_book_id, public_fund=False):
+        if public_fund:
+            return self._public_fund_dividends.get_dividend(order_book_id)
+        return self._dividends.get_dividend(order_book_id)

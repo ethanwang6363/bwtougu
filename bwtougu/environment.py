@@ -51,7 +51,6 @@ class Environment(object):
                 _(u"Environment has not been created. Please Use `Environment.get_instance()` after RQAlpha init"))
         return Environment._env
 
-
     def set_data_proxy(self, data_proxy):
         self.data_proxy = data_proxy
 
