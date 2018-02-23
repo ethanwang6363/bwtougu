@@ -7,7 +7,7 @@ import time
 from bwtougu.const import ORDER_STATUS, ORDER_TYPE, SIDE, POSITION_EFFECT
 from bwtougu.utils import id_gen
 from bwtougu.utils.repr import property_repr, properties
-from bwtougu.utils.logger import user_system_log
+from bwtougu.utils.logger import system_log
 from bwtougu.environment import Environment
 
 class Order(object):
@@ -255,14 +255,14 @@ class Order(object):
         if not self.is_final():
             self._message = reject_reason
             self._status = ORDER_STATUS.REJECTED
-            user_system_log.warn(reject_reason)
+            system_log.warn(reject_reason)
 
     def mark_cancelled(self, cancelled_reason, user_warn=True):
         if not self.is_final():
             self._message = cancelled_reason
             self._status = ORDER_STATUS.CANCELLED
             if user_warn:
-                user_system_log.warn(cancelled_reason)
+                system_log.warn(cancelled_reason)
 
     def set_frozen_price(self, value):
         self._frozen_price = value

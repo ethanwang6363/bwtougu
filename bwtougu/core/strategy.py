@@ -4,7 +4,7 @@
 
 from bwtougu.events import EVENT, Event
 from bwtougu.utils import run_when_strategy_not_hold
-from bwtougu.utils.logger import user_system_log
+from bwtougu.utils.logger import system_log
 from bwtougu.utils.i18n import gettext as _
 from bwtougu.utils.exception import ModifyExceptionFromType
 from bwtougu.execution_context import ExecutionContext
@@ -23,7 +23,7 @@ class Strategy(object):
         func_before_trading = scope.get('before_trading', None)
         if func_before_trading is not None and func_before_trading.__code__.co_argcount > 1:
             self._before_trading = lambda context: func_before_trading(context, None)
-            user_system_log.warn(_(u"deprecated parameter[bar_dict] in before_trading function."))
+            system_log.warn(_(u"deprecated parameter[bar_dict] in before_trading function."))
         else:
             self._before_trading = func_before_trading
         self._after_trading = scope.get('after_trading', None)
@@ -40,9 +40,9 @@ class Strategy(object):
         self._before_day_trading = scope.get('before_day_trading', None)
         self._before_night_trading = scope.get('before_night_trading', None)
         if self._before_day_trading is not None:
-            user_system_log.warn(_(u"[deprecated] before_day_trading is no longer used. use before_trading instead."))
+            system_log.warn(_(u"[deprecated] before_day_trading is no longer used. use before_trading instead."))
         if self._before_night_trading is not None:
-            user_system_log.warn(_(u"[deprecated] before_night_trading is no longer used. use before_trading instead."))
+            system_log.warn(_(u"[deprecated] before_night_trading is no longer used. use before_trading instead."))
 
     @property
     def user_context(self):

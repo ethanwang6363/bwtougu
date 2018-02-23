@@ -6,7 +6,7 @@ import six
 from bwtougu.interface import AbstractAccount
 from bwtougu.utils.repr import property_repr
 from bwtougu.utils.i18n import gettext as _
-from bwtougu.utils.logger import user_system_log
+from bwtougu.utils.logger import system_log
 
 
 class BaseAccount(AbstractAccount):
@@ -108,7 +108,7 @@ class BaseAccount(AbstractAccount):
         """
         [已弃用] 请使用 total_value
         """
-        user_system_log.warn(_(u"[abandon] {} is no longer used.").format('account.portfolio_value'))
+        system_log.warn(_(u"[abandon] {} is no longer used.").format('account.portfolio_value'))
         return self.total_value
 
     @property
@@ -116,7 +116,7 @@ class BaseAccount(AbstractAccount):
         """
         [已弃用] 请使用 total_value
         """
-        user_system_log.warn(_(u"[abandon] {} is no longer used.").format('account.starting_cash'))
+        system_log.warn(_(u"[abandon] {} is no longer used.").format('account.starting_cash'))
         return 0
 
     @property
@@ -124,7 +124,7 @@ class BaseAccount(AbstractAccount):
         """
         [已弃用] 请使用 total_value
         """
-        user_system_log.warn(_(u"[abandon] {} is no longer used.").format('account.daily_returns'))
+        system_log.warn(_(u"[abandon] {} is no longer used.").format('account.daily_returns'))
         return 0
 
     @property
@@ -132,7 +132,7 @@ class BaseAccount(AbstractAccount):
         """
         [已弃用] 请使用 total_value
         """
-        user_system_log.warn(_(u"[abandon] {} is no longer used.").format('account.total_returns'))
+        system_log.warn(_(u"[abandon] {} is no longer used.").format('account.total_returns'))
         return 0
 
     @property
@@ -140,5 +140,5 @@ class BaseAccount(AbstractAccount):
         """
         [已弃用] 请使用 total_value
         """
-        user_system_log.warn(_(u"[abandon] {} is no longer used.").format('account.pnl'))
+        system_log.warn(_(u"[abandon] {} is no longer used.").format('account.pnl'))
         return 0

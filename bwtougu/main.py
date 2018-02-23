@@ -27,7 +27,7 @@ from bwtougu.execution_context import ExecutionContext
 from bwtougu.events import EVENT, Event
 from bwtougu.core.strategy_context import StrategyContext
 from bwtougu.core.strategy import Strategy
-from bwtougu.utils.logger import system_log, basic_system_log, user_system_log, user_detail_log
+from bwtougu.utils.logger import system_log
 
 from bwtougu.api import helper as api_helper
 
@@ -39,7 +39,6 @@ def run(config, source_code=None, user_funcs=None):
 
     try:
         set_loggers(config)
-        # basic_system_log.debug("\n" + pformat(config.conver))
         env.set_strategy_loader(FileStrategyLoader(config.base.strategy_file))
         env.set_global_vars(GlobalVars())
         mod_handler.set_env(env)
@@ -127,35 +126,20 @@ def _adjust_start_date(config, data_proxy):
     config.base.end_date = config.base.trading_calendar[-1].date()
     config.base.timezone = pytz.utc
 
-
-
-
-
-
-
-
-
-
-
-
-
-
 def set_loggers(config):
-    from bwtougu.utils.logger import user_log, user_system_log, user_detail_log, system_log, basic_system_log, std_log
+    from bwtougu.utils.logger import user_log, system_log
     from bwtougu.utils.logger import user_std_handler, init_logger
     from bwtougu.utils import logger
     extra_config = config.extra
 
     init_logger()
 
-    for log in [basic_system_log, system_log, std_log, user_log, user_system_log, user_detail_log]:
+    for log in [system_log, user_log]:
         log.level = getattr(logbook, config.extra.log_level.upper(), logbook.NOTSET)
 
     if extra_config.log_level.upper() != "NONE":
         if not extra_config.user_log_disabled:
             user_log.handlers.append(user_std_handler)
-        if not extra_config.user_system_log_disabled:
-            user_system_log.handlers.append(user_std_handler)
 
     for logger_name, level in extra_config.logger:
         getattr(logger, logger_name).level = getattr(logbook, level.upper())

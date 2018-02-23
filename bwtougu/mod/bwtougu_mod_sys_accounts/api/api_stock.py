@@ -16,7 +16,7 @@ from bwtougu.utils.arg_checker import apply_rules, verify_that
 # noinspection PyUnresolvedReferences
 from bwtougu.utils.exception import patch_user_exc, RQInvalidArgument
 from bwtougu.utils.i18n import gettext as _
-from bwtougu.utils.logger import user_system_log
+from bwtougu.utils.logger import system_log
 # noinspection PyUnresolvedReferences
 from bwtougu.utils.scheduler import market_close, market_open
 # noinspection PyUnresolvedReferences
@@ -90,7 +90,7 @@ def order_shares(id_or_ins, amount, price=None, style=None):
 
     price = env.get_last_price(order_book_id)
     if not is_valid_price(price):
-        user_system_log.warn(
+        system_log.warn(
             _(u"Order Creation Failed: [{order_book_id}] No market data").format(order_book_id=order_book_id))
         return
 
@@ -110,7 +110,7 @@ def order_shares(id_or_ins, amount, price=None, style=None):
     r_order = Order.__from_create__(order_book_id, amount, side, style, None)
 
     if price == 0:
-        user_system_log.warn(
+        system_log.warn(
             _(u"Order Creation Failed: [{order_book_id}] No market data").format(order_book_id=order_book_id))
         r_order.mark_rejected(
             _(u"Order Creation Failed: [{order_book_id}] No market data").format(order_book_id=order_book_id))
@@ -230,7 +230,7 @@ def order_value(id_or_ins, cash_amount, price=None, style=None):
 
     price = env.get_last_price(order_book_id)
     if not is_valid_price(price):
-        user_system_log.warn(
+        system_log.warn(
             _(u"Order Creation Failed: [{order_book_id}] No market data").format(order_book_id=order_book_id))
         return
 

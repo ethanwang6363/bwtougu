@@ -4,8 +4,6 @@
 from bwtougu.model.base_position import BasePosition
 from bwtougu.const import DEFAULT_ACCOUNT_TYPE, SIDE
 from bwtougu.environment import Environment
-from bwtougu.utils.i18n import gettext as _
-from bwtougu.utils.logger import user_system_log
 
 
 class StockPosition(BasePosition):
@@ -140,44 +138,4 @@ class StockPosition(BasePosition):
         total_value = accounts[DEFAULT_ACCOUNT_TYPE.STOCK.name].total_value
         return 0 if total_value == 0 else self.market_value / total_value
 
-    # ------------------------------------ Abandon Property ------------------------------------
 
-    @property
-    def bought_quantity(self):
-        """
-        [已弃用]
-        """
-        user_system_log.warn(_(u"[abandon] {} is no longer valid.").format('stock_position.bought_quantity'))
-        return self._quantity
-
-    @property
-    def sold_quantity(self):
-        """
-        [已弃用]
-        """
-        user_system_log.warn(_(u"[abandon] {} is no longer valid.").format('stock_position.sold_quantity'))
-        return 0
-
-    @property
-    def bought_value(self):
-        """
-        [已弃用]
-        """
-        user_system_log.warn(_(u"[abandon] {} is no longer valid.").format('stock_position.bought_value'))
-        return self._quantity * self._avg_price
-
-    @property
-    def sold_value(self):
-        """
-        [已弃用]
-        """
-        user_system_log.warn(_(u"[abandon] {} is no longer valid.").format('stock_position.sold_value'))
-        return 0
-
-    @property
-    def average_cost(self):
-        """
-        [已弃用] 请使用 avg_price 获取持仓买入均价
-        """
-        user_system_log.warn(_(u"[abandon] {} is no longer valid.").format('stock_position.average_cost'))
-        return self._avg_price
