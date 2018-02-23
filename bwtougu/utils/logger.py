@@ -9,7 +9,7 @@ import os
 from logbook import Logger, TimedRotatingFileHandler
 from logbook.more import ColorizedStderrHandler
 
-from rqalpha.utils.py2 import to_utf8, from_utf8
+from bwtougu.utils.py2 import to_utf8, from_utf8
 
 logbook.set_datetime_format("local")
 
@@ -44,15 +44,16 @@ DATETIME_FORMAT = "%Y-%m-%d %H:%M:%S.%f"
 
 
 def user_std_handler_log_formatter(record, handler):
-    from rqalpha.environment import Environment
-    try:
-        dt = Environment.get_instance().calendar_dt.strftime(DATETIME_FORMAT)
-    except Exception:
-        dt = datetime.now().strftime(DATETIME_FORMAT)
+    from bwtougu.environment import Environment
+#    try:
+#        dt = Environment.get_instance().calendar_dt.strftime(DATETIME_FORMAT)
+#    except Exception:
+    dt = datetime.now().strftime(DATETIME_FORMAT)
 
-    log = "[{dt}][{level}][{filename}:{lineno}][{func_name}] {msg}".format(
+    log = "[{dt}][{level}]:{channel}:[{filename}:{lineno}][{func_name}] {msg}".format(
         dt=dt,
         level=record.level_name,                      # 日志等级
+        channel=record.channel,
         filename=os.path.split(record.filename)[-1],  # 文件名
         lineno=record.lineno,                         # 行号
         func_name=record.func_name,                   # 函数名
@@ -64,6 +65,7 @@ def user_std_handler_log_formatter(record, handler):
 user_std_handler = ColorizedStderrHandler(bubble=True)
 user_std_handler.formatter = user_std_handler_log_formatter
 
+
 # 日志路径，在主工程下生成log目录
 LOG_DIR = os.path.join('log')
 if not os.path.exists(LOG_DIR):
@@ -73,23 +75,6 @@ if not os.path.exists(LOG_DIR):
 user_file_handler = TimedRotatingFileHandler(
     os.path.join(LOG_DIR, '%s.log' % 'rqalpha'), date_format='%Y%m%d', bubble=True)
 user_file_handler.formatter = user_std_handler_log_formatter
-
-
-def formatter_builder(tag):
-    def formatter(record, handler):
-
-        log = "[{formatter_tag}] [{time}] {level}: {msg}".format(
-            formatter_tag=tag,
-            level=record.level_name,
-            msg=to_utf8(record.message),
-            time=record.time,
-        )
-
-        if record.formatted_exception:
-            log += "\n" + record.formatted_exception
-        return log
-    return formatter
-
 
 # loggers
 # 用户代码logger日志
@@ -110,7 +95,8 @@ std_log = Logger("std_log")
 
 
 def init_logger():
-    system_log.handlers = [ColorizedStderrHandler(bubble=True)]
+    system_log.handlers = []
+    system_log.handlers.append(user_std_handler)
     basic_system_log.handlers = [ColorizedStderrHandler(bubble=True)]
     std_log.handlers = [ColorizedStderrHandler(bubble=True)]
     user_log.handlers = []
