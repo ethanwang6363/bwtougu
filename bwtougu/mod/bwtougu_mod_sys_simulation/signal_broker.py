@@ -5,7 +5,7 @@
 from copy import copy
 
 from bwtougu.interface import AbstractBroker
-from bwtougu.utils.logger import user_system_log
+from bwtougu.utils.logger import system_log
 from bwtougu.utils.i18n import gettext as _
 from bwtougu.utils import is_valid_price
 from bwtougu.events import EVENT, Event
@@ -40,7 +40,7 @@ class SignalBroker(AbstractBroker):
         self._match(account, order)
 
     def cancel_order(self, order):
-        user_system_log.error(_(u"cancel_order function is not supported in signal mode"))
+        system_log.error(_(u"cancel_order function is not supported in signal mode"))
         return None
 
     def _match(self, account, order):
@@ -75,14 +75,14 @@ class SignalBroker(AbstractBroker):
             在 Signal 模式下，不再阻止涨跌停是否买进，price_limit 参数表示是否给出警告提示。
             """
             if order.side == SIDE.BUY and deal_price >= price_board.get_limit_up(order_book_id):
-                user_system_log.warning(_(u"You have traded {order_book_id} with {quantity} lots in {bar_status}").format(
+                system_log.warning(_(u"You have traded {order_book_id} with {quantity} lots in {bar_status}").format(
                     order_book_id=order_book_id,
                     quantity=order.quantity,
                     bar_status=BAR_STATUS.LIMIT_UP
                 ))
                 return
             if order.side == SIDE.SELL and deal_price <= price_board.get_limit_down(order_book_id):
-                user_system_log.warning(_(u"You have traded {order_book_id} with {quantity} lots in {bar_status}").format(
+                system_log.warning(_(u"You have traded {order_book_id} with {quantity} lots in {bar_status}").format(
                     order_book_id=order_book_id,
                     quantity=order.quantity,
                     bar_status=BAR_STATUS.LIMIT_DOWN

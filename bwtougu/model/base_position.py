@@ -4,7 +4,7 @@
 from bwtougu.interface import AbstractPosition
 from bwtougu.environment import Environment
 from bwtougu.utils.i18n import gettext as _
-from bwtougu.utils.logger import user_system_log
+from bwtougu.utils.logger import system_log
 
 
 class Positions(dict):
@@ -90,12 +90,12 @@ class BasePosition(AbstractPosition):
     @property
     def total_orders(self):
         """abandon"""
-        user_system_log.warn(_(u"[abandon] {} is no longer valid.").format('position.total_orders'))
+        system_log.warn(_(u"[abandon] {} is no longer valid.").format('position.total_orders'))
         return 0
 
     @property
     def total_trades(self):
         """abandon"""
-        user_system_log.warn(_(u"[abandon] {} is no longer valid.").format('position.total_trades'))
+        system_log.warn(_(u"[abandon] {} is no longer valid.").format('position.total_trades'))
         return 0
 

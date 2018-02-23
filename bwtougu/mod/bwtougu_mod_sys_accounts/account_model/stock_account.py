@@ -8,7 +8,7 @@ from collections import defaultdict
 from bwtougu.model.base_account import BaseAccount
 from bwtougu.events import EVENT
 from bwtougu.environment import Environment
-from bwtougu.utils.logger import user_system_log
+from bwtougu.utils.logger import system_log
 from bwtougu.utils.i18n import gettext as _
 from bwtougu.const import SIDE, DEFAULT_ACCOUNT_TYPE
 
@@ -142,7 +142,7 @@ class StockAccount(BaseAccount):
             if position.is_de_listed() and position.quantity != 0:
                 if env.config.validator.cash_return_by_stock_delisted:
                     self._total_cash += position.market_value
-                user_system_log.warn(
+                    system_log.warn(
                     _(u"{order_book_id} is expired, close all positions by system").format(order_book_id=order_book_id)
                 )
                 self._positions.pop(order_book_id, None)

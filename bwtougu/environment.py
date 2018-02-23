@@ -27,7 +27,6 @@ class Environment(object):
         self.profile_deco = None
         self.system_log = system_log
         self.user_log = user_log
-        # self.user_detail_log = user_detail_log
         self.event_bus = EventBus()
         self.portfolio = None
         self.benchmark_portfolio = None

@@ -6,7 +6,7 @@ import pickle
 
 from bwtougu.const import DEFAULT_ACCOUNT_TYPE
 from bwtougu.environment import Environment
-from bwtougu.utils.logger import user_system_log, system_log
+from bwtougu.utils.logger import system_log
 from bwtougu.utils.i18n import gettext as _
 from bwtougu.utils.repr import property_repr
 
@@ -128,7 +128,7 @@ class StrategyContext(object):
             try:
                 dict_data[key] = pickle.dumps(value)
             except Exception as e:
-                user_system_log.warn("context.{} can not pickle", key)
+                system_log.warn("context.{} can not pickle", key)
         return pickle.dumps(dict_data)
 
     def set_state(self, state):
@@ -138,7 +138,7 @@ class StrategyContext(object):
                 self.__dict__[key] = pickle.loads(value)
                 system_log.debug("restore context.{} {}", key, type(self.__dict__[key]))
             except Exception as e:
-                user_system_log.warn('context.{} can not restore', key)
+                system_log.warn('context.{} can not restore', key)
 
     @property
     def universe(self):
@@ -227,30 +227,30 @@ class StrategyContext(object):
 
     @property
     def stock_portfolio(self):
-        user_system_log.warn(_(u"[abandon] {} is no longer used.").format('context.stock_portfolio'))
+        system_log.warn(_(u"[abandon] {} is no longer used.").format('context.stock_portfolio'))
         return self.stock_account
 
     @property
     def future_portfolio(self):
-        user_system_log.warn(_(u"[abandon] {} is no longer used.").format('context.future_portfolio'))
+        system_log.warn(_(u"[abandon] {} is no longer used.").format('context.future_portfolio'))
         return self.future_account
 
     @slippage.setter
     def slippage(self, value):
-        user_system_log.warn(_(u"[abandon] {} is no longer used.").format('context.slippage'))
+        system_log.warn(_(u"[abandon] {} is no longer used.").format('context.slippage'))
 
     @benchmark.setter
     def benchmark(self, value):
-        user_system_log.warn(_(u"[abandon] {} is no longer used.").format('context.benchmark'))
+        system_log.warn(_(u"[abandon] {} is no longer used.").format('context.benchmark'))
 
     @margin_rate.setter
     def margin_rate(self, value):
-        user_system_log.warn(_(u"[abandon] {} is no longer used.").format('context.margin_rate'))
+        system_log.warn(_(u"[abandon] {} is no longer used.").format('context.margin_rate'))
 
     @commission.setter
     def commission(self, value):
-        user_system_log.warn(_(u"[abandon] {} is no longer used.").format('context.commission'))
+        system_log.warn(_(u"[abandon] {} is no longer used.").format('context.commission'))
 
     @short_selling_allowed.setter
     def short_selling_allowed(self, value):
-        user_system_log.warn(_(u"[abandon] {} is no longer used.").format('context.short_selling_allowed'))
+        system_log.warn(_(u"[abandon] {} is no longer used.").format('context.short_selling_allowed'))
