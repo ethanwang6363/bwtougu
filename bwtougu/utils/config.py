@@ -93,8 +93,8 @@ def parse_config(config_args, config_path=None, click_type=False, source_code=No
         if isinstance(config.extra.context_vars, six.string_types):
             config.extra.context_vars = json.loads(to_utf8(config.extra.context_vars))
 
-    if config.base.frequency == "1d":
-        logger.DATETIME_FORMAT = "%Y-%m-%d"
+#    if config.base.frequency == "1d":
+#        logger.DATETIME_FORMAT = "%Y-%m-%d"
 
     return config
 
