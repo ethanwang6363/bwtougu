@@ -14,34 +14,6 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-import six
-
-
-if six.PY2:
-    import sys
-    reload(sys)
-    sys.setdefaultencoding("utf-8")
-
-
-def to_utf8(string):
-    try:
-        if six.PY2:
-            return string.encode('utf-8')
-        else:
-            return string
-    except AttributeError:
-        return to_utf8(str(string))
-    except UnicodeDecodeError:
-        return to_utf8(unicode(string, 'utf-8'))
-
-
-def from_utf8(string):
-    try:
-        return string.decode('utf-8')
-    except AttributeError:
-        return string
-
-
 try:
     from functools import lru_cache as origin_lru_cache
 except ImportError:
@@ -69,14 +41,3 @@ try:
     from inspect import signature
 except ImportError:
     from funcsigs import signature
-
-def to_utf8(string):
-    try:
-        if six.PY2:
-            return string.encode('utf-8')
-        else:
-            return string
-    except AttributeError:
-        return to_utf8(str(string))
-    except UnicodeDecodeError:
-        return to_utf8(unicode(string, 'utf-8'))

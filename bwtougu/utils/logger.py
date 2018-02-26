@@ -9,8 +9,6 @@ import os
 from logbook import Logger, TimedRotatingFileHandler
 from logbook.more import ColorizedStderrHandler
 
-from bwtougu.utils.py2 import to_utf8, from_utf8
-
 logbook.set_datetime_format("local")
 
 
@@ -25,7 +23,7 @@ def format_exception(exc, value, tb):
     if not str(value) and exc is AssertionError:
         value.args = (colored_source,)
     title = traceback.format_exception_only(exc, value)
-    title = from_utf8(title[0].strip())
+    title = title[0].strip()
     full_trace = u'Traceback (most recent call last):\n{}{}\n'.format(formatted, title)
 
     return full_trace
@@ -53,7 +51,7 @@ def user_std_handler_log_formatter(record, handler):
         filename=os.path.split(record.filename)[-1],  # 文件名
         lineno=record.lineno,                         # 行号
         func_name=record.func_name,                   # 函数名
-        msg=to_utf8(record.message),
+        msg=record.message,
     )
     return log
 
