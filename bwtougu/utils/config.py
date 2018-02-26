@@ -14,8 +14,7 @@ import six
 from bwtougu.const import RUN_TYPE
 from bwtougu.utils.dict_func import deep_update
 from bwtougu.utils import RqAttrDict, logger
-from bwtougu.utils.i18n import gettext as _, localization
-from bwtougu.utils.py2 import to_utf8
+from bwtougu.utils.i18n import gettext as _
 
 rqalpha_path = "~/.rqalpha"
 
@@ -86,15 +85,10 @@ def parse_config(config_args, config_path=None, click_type=False, source_code=No
 
     config.base.run_type = parse_run_type(config.base.run_type)
     config.base.accounts = parse_accounts(config.base.accounts)
-    # config.base.init_positions = parse_init_positions(config.base.init_positions)
-    # config.base.persist_mode = parse_persist_mode(config.base.persist_mode)
 
     if config.extra.context_vars:
         if isinstance(config.extra.context_vars, six.string_types):
-            config.extra.context_vars = json.loads(to_utf8(config.extra.context_vars))
-
-#    if config.base.frequency == "1d":
-#        logger.DATETIME_FORMAT = "%Y-%m-%d"
+            config.extra.context_vars = json.loads(config.extra.context_vars)
 
     return config
 
@@ -136,11 +130,11 @@ def set_locale(lc):
     except Exception as e:
         if os.name != 'nt':
             raise
-    localization.set_locale([lc])
+    # localization.set_locale([lc])
 
 def dump_config(config_path, config, dumper=yaml.Dumper):
     dirname = os.path.dirname(config_path)
     if not os.path.exists(dirname):
         os.makedirs(dirname)
     with codecs.open(config_path, mode='w', encoding='utf-8') as stream:
-        stream.write(to_utf8(yaml.dump(config, Dumper=dumper)))
+        stream.write(yaml.dump(config, Dumper=dumper))
