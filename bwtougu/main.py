@@ -128,7 +128,7 @@ def _adjust_start_date(config, data_proxy):
 
 def set_loggers(config):
     from bwtougu.utils.logger import user_log, system_log
-    from bwtougu.utils.logger import user_std_handler, init_logger
+    from bwtougu.utils.logger import user_std_handler, user_file_handler, init_logger
     from bwtougu.utils import logger
     extra_config = config.extra
 
@@ -140,6 +140,7 @@ def set_loggers(config):
     if extra_config.log_level.upper() != "NONE":
         if not extra_config.user_log_disabled:
             user_log.handlers.append(user_std_handler)
+            user_log.handlers.append(user_file_handler)
 
     for logger_name, level in extra_config.logger:
         getattr(logger, logger_name).level = getattr(logbook, level.upper())
