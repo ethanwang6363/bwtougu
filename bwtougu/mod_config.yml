@@ -2,7 +2,7 @@ mod:
   sys_accounts: {enabled: true}
   sys_analyser: {enabled: false}
   sys_funcat: {enabled: false}
-  sys_progress: {enabled: true}
+  sys_progress: {enabled: false}
   sys_risk: {enabled: false}
   sys_simulation: {enabled: true}
   sys_stock_realtime: {enabled: false}

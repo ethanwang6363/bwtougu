@@ -135,7 +135,7 @@ def mod(cmd, params):
         if "rqalpha_mod_" in mod_name:
             mod_name = mod_name.replace("rqalpha_mod_", "")
 
-        from rqalpha.utils.config import user_mod_conf_path, load_yaml
+        from bwtougu.utils.config import user_mod_conf_path, load_yaml
         user_conf = load_yaml(user_mod_conf_path()) if os.path.exists(user_mod_conf_path()) else {'mod': {}}
 
         try:
