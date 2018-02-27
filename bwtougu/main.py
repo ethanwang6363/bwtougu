@@ -1,5 +1,7 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
+#
+# 程序主逻辑入口，在运行策略回测时，run作为应用逻辑入口，完成几乎所有条件的设置
 
 import logbook
 import six
@@ -9,7 +11,6 @@ import datetime
 from bwtougu import const
 from bwtougu.environment import Environment
 from bwtougu.core.global_var import GlobalVars
-from bwtougu.core.strategy_universe import StrategyUniverse
 from bwtougu.mod import ModHandler
 
 from bwtougu.model.portfolio import Portfolio
@@ -33,8 +34,6 @@ from bwtougu.api import helper as api_helper
 
 def run(config, source_code=None, user_funcs=None):
     env = Environment(config)
-    persist_helper = None
-    init_succeed = False
     mod_handler = ModHandler()
 
     try:
@@ -52,7 +51,6 @@ def run(config, source_code=None, user_funcs=None):
         scheduler = Scheduler(config.base.frequency)
         mod_scheduler._scheduler = scheduler
 
-        env._universe = StrategyUniverse()
         _adjust_start_date(env.config, env.data_proxy)
         _validate_benchmark(env.config, env.data_proxy)
 

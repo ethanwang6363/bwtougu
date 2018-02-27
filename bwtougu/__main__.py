@@ -1,6 +1,8 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
-
+#
+# 程序入口文件，通过entry_point函数作为程序入口，接入程序主逻辑
+# 然后通过命令行接口解析命令行参数，形成不同的入口分支
 import os
 import six
 import click

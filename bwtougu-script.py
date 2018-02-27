@@ -1,5 +1,8 @@
 #!"C:\Program Files\Anaconda3\envs\python3.6\python.exe"
 # EASY-INSTALL-ENTRY-SCRIPT: 'bwtougu==0.0.1','console_scripts','bwtougu'
+#
+# setup.py生成的脚本文件，用来做程序启动
+
 __requires__ = 'bwtougu==0.0.1'
 import re
 import sys
